@@ -3,6 +3,7 @@ package com.example.aa.daydream;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,6 +21,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        findViewById(R.id.otherButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPanoramaActivity("other_places", "Bryce_Canyon_National_Park_lite.jpg");
+            }
+        });
 
         ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment)).getMapAsync(this);
     }
@@ -42,13 +50,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         BdaMarker.setTag("BDA");
         BdaMarker.showInfoWindow();
 
-        //add BDA Complex markers
-        Marker otherPlaces = mGoogleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(13.126434, 77.512792))
-                .title("Other Places"));
-        otherPlaces.setTag("Other Places");
-        otherPlaces.showInfoWindow();
-
         //add Treebo Nova markers
         Marker treeboNovaMarker = mGoogleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(12.912002, 77.633345))
@@ -69,9 +70,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     return true;
                 } else if ("BDA".equals(marker.getTag().toString())) {
                     startPanoramaActivity("bda", "bda_entrance.jpg");
-                    return true;
-                } else if ("Other Places".equals(marker.getTag().toString())) {
-                    startPanoramaActivity("other_places", "Bryce_Canyon_National_Park_lite.jpg");
                     return true;
                 } else {
                     return false;
