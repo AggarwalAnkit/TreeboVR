@@ -31,6 +31,8 @@ public class PanoramaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_panorama);
 
         panoWidgetView = (VrPanoramaView) findViewById(R.id.pano_view);
+        panoWidgetView.setInfoButtonEnabled(false);
+        panoWidgetView.setFullscreenButtonEnabled(false);
 
         panoWidgetView.setEventListener(new ActivityEventListener());
 
@@ -170,6 +172,17 @@ public class PanoramaActivity extends AppCompatActivity {
                         newFileName = "nova_bathroom.jpg";
                         break;
                     case "nova_bathroom.jpg":
+                        finish();
+                        return;
+                    default:
+                        break;
+                }
+            } else if ("other_places".equalsIgnoreCase(folderName)) {
+                switch (fileName) {
+                    case "Bryce_Canyon_National_Park_lite.jpg":
+                        newFileName = "andes.jpg";
+                        break;
+                    case "andes.jpg":
                         finish();
                         return;
                     default:

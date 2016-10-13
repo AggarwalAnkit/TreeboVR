@@ -9,7 +9,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -36,13 +35,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         treeboHeadOfficeMarker.setTag("Treebo Head Office");
         treeboHeadOfficeMarker.showInfoWindow();
 
-        //add Treebo Nova markers
-        Marker treeboNovaMarker = mGoogleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(12.912002, 77.633345))
-                .title("Treebo Nova"));
-        treeboNovaMarker.setTag("Treebo Nova");
-        treeboNovaMarker.showInfoWindow();
-
         //add BDA Complex markers
         Marker BdaMarker = mGoogleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(12.913788, 77.637211))
@@ -50,17 +42,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         BdaMarker.setTag("BDA");
         BdaMarker.showInfoWindow();
 
-//        mGoogleMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
-//            @Override
-//            public void onCameraIdle() {
-//                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-//                builder.include(new LatLng(12.914600, 77.636686));
-//                builder.include(new LatLng(12.912002, 77.633345));
-//                builder.include(new LatLng(12.913788, 77.637211));
-//                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 50));
-//            }
-//        });
+        //add BDA Complex markers
+        Marker otherPlaces = mGoogleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(13.126434, 77.512792))
+                .title("Other Places"));
+        otherPlaces.setTag("Other Places");
+        otherPlaces.showInfoWindow();
 
+        //add Treebo Nova markers
+        Marker treeboNovaMarker = mGoogleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(12.912002, 77.633345))
+                .title("Treebo Nova"));
+        treeboNovaMarker.setTag("Treebo Nova");
+        treeboNovaMarker.showInfoWindow();
+
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(12.912002, 77.633345), 16));
 
         mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -73,6 +69,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     return true;
                 } else if ("BDA".equals(marker.getTag().toString())) {
                     startPanoramaActivity("bda", "bda_entrance.jpg");
+                    return true;
+                } else if ("Other Places".equals(marker.getTag().toString())) {
+                    startPanoramaActivity("other_places", "Bryce_Canyon_National_Park_lite.jpg");
                     return true;
                 } else {
                     return false;
